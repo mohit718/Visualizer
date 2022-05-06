@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+.main {
+  height: 100vh;
+  flex-direction: column;
+}
+
+.bar {
+  margin: 0px 2px;
+  background-color: #c0a6a6;
+  border: 0.5px solid black;
+}
+.compare {
+  background-color: #b4da0e;
+}
+.swap {
+  background-color: #ce1818;
+}
+.finish {
+  background-color: #18ce30;
+}
