@@ -2,6 +2,7 @@
   box-sizing: border-box;
 }
 .main {
+  text-align: center;
   min-height: 100vh;
   flex-direction: column;
 }
