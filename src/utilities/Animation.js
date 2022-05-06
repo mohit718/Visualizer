@@ -1,29 +1,10 @@
-import { COMPARE, FINISH, SWAP } from "./SortingTechnique";
+import { COMPARE, FINISH, SWAP, UPDATE } from "../constants/operation";
 
-const swapHeights = (nodeA, nodeB) => {
-  let h1 = nodeA.style.height;
-  nodeA.style.height = nodeB.style.height;
-  nodeB.style.height = h1;
-};
 const bars = document.getElementsByClassName("bar");
-const resetBars = () => {
-  for (let i = 0; i < bars.length; i++) {
-    bars[i].classList.remove("compare");
-    bars[i].classList.remove("swap");
-    bars[i].classList.remove("finish");
-  }
-};
-const removeCompareSwap = () => {
-  for (let i = 0; i < bars.length; i++) {
-    bars[i].classList.remove("compare");
-    bars[i].classList.remove("swap");
-  }
-};
 
-export const handleAnimations = (animations, speed = 100, callback) => {
+export const startAnimations = (animations, speed, callback) => {
   let lastAnimation = {};
   let n = animations.length;
-  resetBars();
   let timeouts = [];
   animations.forEach((animation, idx) => {
     timeouts.push(
@@ -42,7 +23,9 @@ export const handleAnimations = (animations, speed = 100, callback) => {
           bars[animation[1]].classList.add("swap");
           bars[animation[2]].classList.add("swap");
           swapHeights(bars[animation[1]], bars[animation[2]]);
-        } else if (animation[0] == FINISH) {
+        } else if (animation[0] === UPDATE) {
+          updateHeight(bars[animation[1]], animation[2]);
+        } else if (animation[0] === FINISH) {
           bars[animation[1]].classList.add("finish");
         }
       }, speed * idx)
@@ -53,8 +36,34 @@ export const handleAnimations = (animations, speed = 100, callback) => {
   timeouts.push(
     setTimeout(() => {
       removeCompareSwap();
-      callback();
+      if (callback) callback();
     }, time)
   );
   return timeouts;
+};
+
+export const resetBars = (arr = null) => {
+  for (let i = 0; i < bars.length; i++) {
+    bars[i].classList.remove("compare");
+    bars[i].classList.remove("swap");
+    bars[i].classList.remove("finish");
+    if (arr) updateHeight(bars[i], arr[i]);
+  }
+};
+
+const updateHeight = (node, newHeight) => {
+  node.style.height = `${newHeight}px`;
+};
+
+const swapHeights = (nodeA, nodeB) => {
+  let h1 = nodeA.style.height;
+  nodeA.style.height = nodeB.style.height;
+  nodeB.style.height = h1;
+};
+
+const removeCompareSwap = () => {
+  for (let i = 0; i < bars.length; i++) {
+    bars[i].classList.remove("compare");
+    bars[i].classList.remove("swap");
+  }
 };

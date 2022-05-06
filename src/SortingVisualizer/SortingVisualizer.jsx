@@ -1,43 +1,48 @@
-import React from "react";
+/* BuiltIns */
+import React, { useCallback } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+/* Constants */
+import { BUBBLE, INSERTION, QUICK, MERGE } from "../constants/sort";
+/* Components */
 import NavBar from "./NavBar";
+/* Utilities */
 import { getRandomArray } from "../utilities/Random";
-import "./SortingVisualizer.css";
+import { resetBars, startAnimations } from "../utilities/Animation";
 import {
-  BUBBLE,
-  INSERTION,
-  QUICK,
-  MERGE,
-  sort,
-  COMPARE,
-  FINISH,
-  SWAP,
-} from "../utilities/SortingTechnique";
-import { handleAnimations } from "../utilities/Animation";
+  bubbleSort,
+  insertionSort,
+  mergeSort,
+  quickSort,
+} from "../utilities/Algorithms";
+/* Styles */
+import "./SortingVisualizer.css";
 
 export default function SortingVisualizer() {
   const [isActive, setIsActive] = useState(false);
   const [array, setArray] = useState([]);
-  const [sortTechnique, setSortTechnique] = useState(BUBBLE);
+  const [sortTechnique, setSortTechnique] = useState(QUICK);
   const [timeouts, setTimeouts] = useState([]);
+  const [arraySize, setArraySize] = useState(0);
+  const [animationDelay, setAnimationDelay] = useState(0);
+
+  const generateArray = useCallback(() => {
+    setArray(getRandomArray(arraySize));
+  }, [arraySize]);
 
   useEffect(() => {
-    resetArray();
-  }, []);
+    generateArray();
+  }, [arraySize, generateArray]);
 
-  const toggleState = () => {
-    if (isActive) {
-      setIsActive(false);
-      timeouts.forEach(timeout => clearTimeout(timeout));
-    } else {
-      setIsActive(true);
-      handleSort();
-    }
+  const start = () => {
+    setIsActive(true);
+    handleSort();
   };
 
-  const resetArray = () => {
-    setArray(getRandomArray(5));
+  const stop = () => {
+    timeouts.forEach(timeout => clearTimeout(timeout));
+    setIsActive(false);
+    resetBars(array);
   };
 
   const handleSort = () => {
@@ -47,38 +52,48 @@ export default function SortingVisualizer() {
     switch (sortTechnique) {
       case BUBBLE:
         console.log("Sorting by BUBBLE SORT");
-        animations = sort.bubble(newArray);
+        bubbleSort(newArray, animations);
         break;
       case INSERTION:
         console.log("Sorting by INSERTION SORT");
-        animations = sort.insertion(newArray);
+        insertionSort(newArray, animations);
         break;
       case MERGE:
         console.log("Sorting by MERGE SORT");
-        animations = sort.merge(newArray);
+        mergeSort(
+          newArray,
+          newArray.slice(),
+          0,
+          newArray.length - 1,
+          animations
+        );
         break;
       case QUICK:
       default:
         console.log("Sorting by QUICK SORT");
-        animations = sort.quick(newArray);
+        quickSort(newArray, 0, newArray.length - 1, animations);
         break;
     }
+    handleAnimations(newArray, animations);
+  };
+  const handleAnimations = (newArray, animations) => {
     setTimeouts(
-      handleAnimations(animations, 50, () => {
+      startAnimations(animations, animationDelay, () => {
         setArray(newArray);
         setIsActive(false);
         animations = [];
       })
     );
   };
-
   return (
     <div className="main bg-dark">
       <NavBar
         isActive={isActive}
-        onToggleState={toggleState}
-        onResetArray={resetArray}
+        onToggle={() => (isActive ? stop() : start())}
+        onGenerate={generateArray}
         onSetSortTechnique={setSortTechnique}
+        onDelayChange={setAnimationDelay}
+        onSizeChange={setArraySize}
       />
       <div className="d-flex flex-row justify-content-evenly container">
         {array.map((value, idx) => (

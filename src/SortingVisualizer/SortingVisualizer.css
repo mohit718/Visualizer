@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 .main {
-  height: 100vh;
+  min-height: 100vh;
   flex-direction: column;
 }
 
