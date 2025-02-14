@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# Sorting Visualizer Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The **Sorting Visualizer Website** is an interactive tool designed to help users understand and visualize various sorting algorithms in real-time. This web application provides a hands-on experience with sorting techniques, making it an excellent learning resource for students, educators, and programming enthusiasts.
 
-## Available Scripts
+## You may visit the deployed app from here
+[ms18-sorting.netlify.app](https://ms18-sorting.netlify.app/)
 
-In the project directory, you can run:
+![Screenshot 2025-02-14 202123](https://github.com/user-attachments/assets/b86ed50d-7b50-490f-a0c6-4587026adac6)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## ✨ Key Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🔹 Choice of Sorting Algorithms:
+- Bubble Sort  
+- Insertion Sort  
+- Quick Sort  
+- Merge Sort  
 
-### `npm test`
+### 🔹 Customizable Sample Size:
+Users can select the number of elements (bars) to sort, allowing for tailored visualization.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🔹 Variable Delay Time:
+Adjust the speed of the animations to observe each step in detail or see the algorithm work quickly.
 
-### `npm run build`
+### 🔹 Real-Time Animations:
+Watch bars being rearranged dynamically, showcasing how the chosen sorting algorithm operates step-by-step.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🔹 Intuitive User Interface:
+A clean and user-friendly interface makes it easy to choose algorithms, adjust settings, and start the visualization.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🚀 Getting Started
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Follow these steps to set up and run the application locally.
 
-### `npm run eject`
+### Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Clone the repository:
+  ```sh
+  git clone https://github.com/your-username/Visualizer.git
+  ```
+2. Navigate to the project directory:
+  ```sh
+  cd Visualizer
+  ```
+3. Install the dependencies:
+  ```sh
+  npm install
+  ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Running the Project
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+To start the development server, run:
+```sh
+npm start
+```
+This will launch the app in your default web browser. If it doesn't, open [http://localhost:3000](http://localhost:3000) manually.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
