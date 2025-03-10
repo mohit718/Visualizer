@@ -50,7 +50,7 @@ export default function NavBar({
           <h2 className="col-8 text-light fs-1 fw-bold text-nowrap text-start">Sorting Visualizer</h2>
           <div className="col-4 text-end">
           <button
-            className="btn btn-primary text-light fw-bold"
+            className="btn btn-primary text-light fw-bold fs-5"
             onClick={() =>
               window.open("https://github.com/mohit718/Visualizer", "_blank")
             }
