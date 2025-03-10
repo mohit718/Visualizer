@@ -40,14 +40,14 @@ export default function SortingVisualizer() {
   };
 
   const stop = () => {
-    timeouts.forEach(timeout => clearTimeout(timeout));
+    timeouts.forEach((timeout) => clearTimeout(timeout));
     setIsActive(false);
     resetBars(array);
   };
 
   const handleSort = () => {
     let newArray = [];
-    array.forEach(x => newArray.push(x));
+    array.forEach((x) => newArray.push(x));
     let animations = [];
     switch (sortTechnique) {
       case BUBBLE:
@@ -86,7 +86,7 @@ export default function SortingVisualizer() {
     );
   };
   return (
-    <div className="main bg-dark">
+    <div className="main bg-dark overflow-hidden">
       <NavBar
         isActive={isActive}
         onToggle={() => (isActive ? stop() : start())}
@@ -95,12 +95,15 @@ export default function SortingVisualizer() {
         onDelayChange={setAnimationDelay}
         onSizeChange={setArraySize}
       />
-      <div className="d-flex flex-row justify-content-evenly container">
+      <div className="d-flex flex-row justify-content-evenly container-fluid overflow-x-auto">
         {array.map((value, idx) => (
           <div
-            className="bar w-100 "
-            style={{ height: `${value}px` }}
-            key={idx}></div>
+            className="bar w-100"
+            style={{ height: `${(value + 10) * 3}px` }}
+            key={idx}
+          >
+            <span className="fw-bolder text-dark p-1">{value}</span>
+          </div>
         ))}
       </div>
     </div>

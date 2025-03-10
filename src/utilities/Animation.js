@@ -52,7 +52,7 @@ export const resetBars = (arr = null) => {
 };
 
 const updateHeight = (node, newHeight) => {
-  node.style.height = `${newHeight}px`;
+  node.style.height = `${(newHeight + 10) * 3}px`;
 };
 
 const swapHeights = (nodeA, nodeB) => {

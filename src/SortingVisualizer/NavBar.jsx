@@ -10,18 +10,8 @@ const sortingTechniques = [
   { label: "Insertion Sort", value: INSERTION },
 ];
 
-const getMaxSize = () => {
-  let maxSize = 50;
-  let width = window.innerWidth;
-  if (width >= 540) {
-    maxSize = 90;
-  } else if (width >= 1024) {
-    maxSize = 150;
-  }
-  return maxSize;
-};
-
 export default function NavBar({
+  maxSize,
   isActive,
   onToggle,
   onGenerate,
@@ -31,7 +21,13 @@ export default function NavBar({
 }) {
   const [sortTechnique, setSortTechnique] = useState(QUICK);
   const [animationDelay, setAnimationDelay] = useState(50);
-  const [arraySize, setArraySize] = useState(50);
+  const [arraySize, setArraySize] = useState(5);
+
+  const getMaxSize = () => {
+    let width = window.innerWidth;
+    let maxSize = Math.floor(width / 35);
+    return maxSize;
+  };
 
   useEffect(() => {
     onSetSortTechnique(sortTechnique);
@@ -46,20 +42,43 @@ export default function NavBar({
   }, [arraySize, onSizeChange]);
 
   return (
-    <nav className="navbar navbar-expand-xl navbar-dark bg-dark">
-      <div className="col-12 col-xl-2 row">
-        <h2 className="text-light">Sorting</h2>
-      </div>
-      <div className="col-12 col-xl-5 px-3 row">
-        <div className="col-12 col-md-2 my-1">
-          <button
-            className="btn btn-secondary"
-            onClick={onGenerate}
-            disabled={isActive}>
-            Generate
-          </button>
+    <nav className="navbar navbar-expand-xl navbar-dark bg-dark container-fluid text-light">
+      <div className="row g-0 gx-2 gy-3 w-100 p-1 p-lg-3">
+        <h2 className="col-12 text-light fs-1 fw-bold mb-4">Sorting Visualizer</h2>
+        {/* size-bar */}
+        <div className="col-12 col-lg-2 row g-0">
+          <span className="text-start fw-bolder fs-6 text-nowrap col-4 col-lg-12">
+            Size: {arraySize}
+          </span>
+          <input
+            type="range"
+            className="col-8 col-lg-11"
+            id="array-size"
+            min="3"
+            max={getMaxSize()}
+            disabled={isActive}
+            value={arraySize}
+            onChange={(e) => setArraySize(e.target.value)}
+          />
         </div>
-        <div className="col-12 col-md-10 my-1 btn-group" role="group">
+        {/* delay-bar */}
+        <div className="col-12 col-lg-2 row g-0">
+          <span className="text-start fw-bolder fs-6 text-nowrap col-4 col-lg-12">
+            Delay: {animationDelay}ms
+          </span>
+          <input
+            type="range"
+            className="col-8 col-lg-11"
+            id="animation-delay"
+            min="5"
+            max="500"
+            disabled={isActive}
+            value={animationDelay}
+            onChange={(e) => setAnimationDelay(e.target.value)}
+          />
+        </div>
+        {/* sorting-techniques */}
+        <div className="col-12 col-lg-6 btn-group" role="group">
           {sortingTechniques.map(({ label, value }) => {
             return (
               <button
@@ -69,53 +88,31 @@ export default function NavBar({
                   (sortTechnique === value && "active")
                 }
                 disabled={isActive}
-                onClick={() => setSortTechnique(value)}>
+                onClick={() => setSortTechnique(value)}
+              >
                 {label}
               </button>
             );
           })}
         </div>
-      </div>
-      <div className="col-12 col-xl-4 row">
-        <div className="col-12 col-lg-6">
-          <label htmlFor="array-size" className="form-label text-light mx-3">
-            Size
-          </label>
-          <span className="text-light h5">{arraySize}</span>
-          <input
-            type="range"
-            className="form-range"
-            id="array-size"
-            min="10"
-            max={getMaxSize()}
-            disabled={isActive}
-            onChange={e => setArraySize(e.target.value)}
-          />
+        {/* generate-sort-buttons */}
+        <div className="col-12 col-lg-2">
+          <div className="btn-group" role="group">
+            <button
+              className="btn p-2 px-4 btn-secondary"
+              onClick={onGenerate}
+              disabled={isActive}
+            >
+              Generate
+            </button>
+            <button
+              className={"fw-bold btn p-2 px-4 " + (isActive ? "btn-danger" : "btn-success")}
+              onClick={onToggle}
+            >
+              {isActive ? "Stop" : "Sort"}
+            </button>
+          </div>
         </div>
-        <div className="col-12 col-lg-6">
-          <label
-            htmlFor="animation-delay"
-            className="form-label text-light mx-3">
-            Delay
-          </label>
-          <span className="text-light h5">{animationDelay}ms</span>
-          <input
-            type="range"
-            className="form-range"
-            id="animation-delay"
-            min="5"
-            max="500"
-            disabled={isActive}
-            onChange={e => setAnimationDelay(e.target.value)}
-          />
-        </div>
-      </div>
-      <div className="col-12 col-xl-1 ">
-        <button
-          className={"btn btn-lg " + (isActive ? "btn-danger" : "btn-success")}
-          onClick={onToggle}>
-          {isActive ? "Stop" : "Sort"}
-        </button>
       </div>
     </nav>
   );
