@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 /* Constants */
 import { BUBBLE, INSERTION, MERGE, QUICK } from "../constants/sort";
+import { FaGithub } from 'react-icons/fa';
+
 
 const sortingTechniques = [
   { label: "Quick Sort", value: QUICK },
@@ -9,6 +11,12 @@ const sortingTechniques = [
   { label: "Bubble Sort", value: BUBBLE },
   { label: "Insertion Sort", value: INSERTION },
 ];
+
+const getMaxSize = () => {
+  let width = window.innerWidth;
+  let maxSize = Math.floor(width / 35);
+  return maxSize;
+};
 
 export default function NavBar({
   maxSize,
@@ -21,13 +29,7 @@ export default function NavBar({
 }) {
   const [sortTechnique, setSortTechnique] = useState(QUICK);
   const [animationDelay, setAnimationDelay] = useState(50);
-  const [arraySize, setArraySize] = useState(5);
-
-  const getMaxSize = () => {
-    let width = window.innerWidth;
-    let maxSize = Math.floor(width / 35);
-    return maxSize;
-  };
+  const [arraySize, setArraySize] = useState(Math.floor(getMaxSize() / 2));
 
   useEffect(() => {
     onSetSortTechnique(sortTechnique);
@@ -43,8 +45,22 @@ export default function NavBar({
 
   return (
     <nav className="navbar navbar-expand-xl navbar-dark bg-dark container-fluid text-light">
-      <div className="row g-0 gx-2 gy-3 w-100 p-1 p-lg-3">
-        <h2 className="col-12 text-light fs-1 fw-bold mb-4">Sorting Visualizer</h2>
+      <div className="row g-0 gx-2 gy-3 w-100 p-2 p-lg-3">
+        <div className="col-12 row g-0 my-3">
+          <h2 className="col-8 text-light fs-1 fw-bold text-nowrap text-start">Sorting Visualizer</h2>
+          <div className="col-4 text-end">
+          <button
+            className="btn btn-primary text-light fw-bold"
+            onClick={() =>
+              window.open("https://github.com/mohit718/Visualizer", "_blank")
+            }
+          >
+            Github{" "}
+            <span className="">
+              <FaGithub />
+            </span>
+          </button></div>
+        </div>
         {/* size-bar */}
         <div className="col-12 col-lg-2 row g-0">
           <span className="text-start fw-bolder fs-6 text-nowrap col-4 col-lg-12">
@@ -96,7 +112,7 @@ export default function NavBar({
           })}
         </div>
         {/* generate-sort-buttons */}
-        <div className="col-12 col-lg-2">
+        <div className="col-12 col-lg-2 text-center text-lg-end">
           <div className="btn-group" role="group">
             <button
               className="btn p-2 px-4 btn-secondary"
@@ -106,7 +122,10 @@ export default function NavBar({
               Generate
             </button>
             <button
-              className={"fw-bold btn p-2 px-4 " + (isActive ? "btn-danger" : "btn-success")}
+              className={
+                "fw-bold btn p-2 px-4 " +
+                (isActive ? "btn-danger" : "btn-success")
+              }
               onClick={onToggle}
             >
               {isActive ? "Stop" : "Sort"}

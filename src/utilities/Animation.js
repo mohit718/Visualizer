@@ -32,7 +32,6 @@ export const startAnimations = (animations, speed, callback) => {
     );
   });
   const time = speed * (n - 1);
-  console.log({ time: time });
   timeouts.push(
     setTimeout(() => {
       removeCompareSwap();
